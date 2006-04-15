@@ -16,6 +16,7 @@
 #
 %define		_rel	0.1
 Summary:	sysfs interface to access ThinkPad's SMAPI functionality
+Summary(pl):	Interfejs sysfs do funkcjonalno¶ci SMAPI ThinkPadów
 Name:		kernel-misc-tp_smapi
 Version:	0.19
 Release:	%{_rel}
@@ -29,11 +30,12 @@ BuildRequires:	rpmbuild(macros) >= 1.286
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
+sysfs interface to access ThinkPad's SMAPI functionality.
+
+This package contains Linux kernel module.
 
 %description -l pl
-
-%description -n kernel-misc-tp_smapi -l pl
-Sterownik dla Linuksa do tp_smapi.
+Interfejs sysfs do funkcjonalno¶ci SMAPI ThinkPadów.
 
 Ten pakiet zawiera modu³ j±dra Linuksa.
 
@@ -49,12 +51,12 @@ Requires(postun):	%releq_kernel_smp
 %endif
 
 %description -n kernel-smp-misc-tp_smapi
-This is driver for tp_smapi for Linux.
+sysfs interface to access ThinkPad's SMAPI functionality.
 
 This package contains Linux SMP module.
 
 %description -n kernel-smp-misc-tp_smapi -l pl
-Sterownik dla Linuksa do tp_smapi.
+Interfejs sysfs do funkcjonalno¶ci SMAPI ThinkPadów.
 
 Ten pakiet zawiera modu³ j±dra Linuksa SMP.
 
