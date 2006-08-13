@@ -8,6 +8,7 @@
 %bcond_without	smp		# don't build SMP module
 %bcond_with	verbose		# verbose build (V=1)
 
+%define		_name	tp_smapi
 %define		_rel	0.1
 Summary:	sysfs interface to access ThinkPad's SMAPI functionality
 Summary(pl):	Interfejs sysfs do funkcjonalno¶ci SMAPI ThinkPadów
@@ -16,7 +17,7 @@ Version:	0.27
 Release:	%{_rel}
 License:	GPL v2
 Group:		Applications
-Source0:	http://dl.sourceforge.net/tpctl/tp_smapi-%{version}.tgz
+Source0:	http://dl.sourceforge.net/tpctl/%{_name}-%{version}.tgz
 # Source0-md5:	ca653a14bed809462066aca842776108
 URL:		http://tpctl.sourceforge.net/
 %if %{with dist_kernel}
