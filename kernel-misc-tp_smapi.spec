@@ -14,7 +14,7 @@ Summary:	sysfs interface to access ThinkPad's SMAPI functionality
 Summary(pl):	Interfejs sysfs do funkcjonalno¶ci SMAPI ThinkPadów
 Name:		kernel%{_alt_kernel}-misc-tp_smapi
 Version:	0.27
-Release:	%{_rel}
+Release:	%{_rel}@%{_kernel_ver_str}
 License:	GPL v2
 Group:		Applications
 Source0:	http://dl.sourceforge.net/tpctl/%{_name}-%{version}.tgz
@@ -65,10 +65,7 @@ Ten pakiet zawiera modu³ j±dra Linuksa SMP.
 %prep
 %setup -q -n tp_smapi-%{version}
 echo "obj-m := thinkpad_ec.o tp_smapi.o hdaps.o" > Makefile
-# following NEEDS to be removed and kernel patched with
-# dmi-decode-and-save-oem-string-information.patch from tp_smapi sources
-# DONT use this driver if [ "`dmidecode | grep 'IBM ThinkPad Embedded Controller'`" == "" ]
-echo '#define DMI_EC_OEM_STRING_KLUDGE "IBM ThinkPad Embedded Controller"' > dmi_ec_oem_string.h
+echo > dmi_ec_oem_string.h
 
 %build
 # kernel module(s)
