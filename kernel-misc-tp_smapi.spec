@@ -1,8 +1,4 @@
 #
-# TODO (kernel):
-#	add dmi-decode-and-save-oem-string-information.patch
-#	remove hdaps patch (as its provided here and updated more often i think)
-#
 # Conditional build:
 %bcond_without	dist_kernel	# allow non-distribution kernel
 %bcond_without	smp		# don't build SMP module
@@ -13,12 +9,12 @@
 Summary:	sysfs interface to access ThinkPad's SMAPI functionality
 Summary(pl):	Interfejs sysfs do funkcjonalno¶ci SMAPI ThinkPadów
 Name:		kernel%{_alt_kernel}-misc-tp_smapi
-Version:	0.28
+Version:	0.30
 Release:	%{_rel}@%{_kernel_ver_str}
 License:	GPL v2
 Group:		Applications
 Source0:	http://dl.sourceforge.net/tpctl/%{_name}-%{version}.tgz
-# Source0-md5:	be22b32ff9fb1a572ba9c1a5bb8ad04a
+# Source0-md5:	06e15345276d8389950bd89c8bd96717
 URL:		http://tpctl.sourceforge.net/
 %if %{with dist_kernel}
 BuildRequires:	kernel%{_alt_kernel}-module-build >= 3:2.6.14}
