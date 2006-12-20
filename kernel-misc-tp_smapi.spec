@@ -21,7 +21,7 @@ BuildRequires:	kernel%{_alt_kernel}-module-build >= 3:2.6.14}
 %requires_releq_kernel_up
 Requires(postun):	%releq_kernel_up
 %endif
-BuildRequires:	rpmbuild(macros) >= 1.286
+BuildRequires:	rpmbuild(macros) >= 1.348
 Requires(post,postun):  /sbin/depmod
 ExclusiveArch:	%{ix86}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -64,63 +64,12 @@ echo "obj-m := thinkpad_ec.o tp_smapi.o hdaps.o" > Makefile
 echo > dmi_ec_oem_string.h
 
 %build
-# kernel module(s)
-for cfg in %{?with_dist_kernel:%{?with_smp:smp} up}%{!?with_dist_kernel:nondist}; do
-	if [ ! -r "%{_kernelsrcdir}/config-$cfg" ]; then
-		exit 1
-	fi
-	install -d o/include/linux
-	ln -sf %{_kernelsrcdir}/config-$cfg o/.config
-	ln -sf %{_kernelsrcdir}/Module.symvers-$cfg o/Module.symvers
-	ln -sf %{_kernelsrcdir}/include/linux/autoconf-$cfg.h o/include/linux/autoconf.h
-	ln -sf %{_kernelsrcdir}/include/asm-%{_target_base_arch} o/include/asm
-%if %{with dist_kernel}
-	%{__make} -j1 -C %{_kernelsrcdir} O=$PWD/o prepare scripts
-%else
-	install -d o/include/config
-	touch o/include/config/MARKER
-	ln -sf %{_kernelsrcdir}/scripts o/scripts
-%endif
-#
-#	patching/creating makefile(s) (optional)
-#
-	%{__make} -C %{_kernelsrcdir} clean \
-		RCS_FIND_IGNORE="-name '*.ko' -o" \
-		SYSSRC=%{_kernelsrcdir} \
-		SYSOUT=$PWD/o \
-		M=$PWD O=$PWD/o \
-		%{?with_verbose:V=1}
-	%{__make} -C %{_kernelsrcdir} modules \
-		CFLAGS="%{rpmcflags} -I$PWD/include -I$PWD/o/include/asm/mach-default" \
-		CC="%{__cc}" CPP="%{__cpp}" \
-		SYSSRC=%{_kernelsrcdir} \
-		SYSOUT=$PWD/o \
-		M=$PWD O=$PWD/o \
-		%{?with_verbose:V=1}
-
-	mv tp_smapi{,-$cfg}.ko
-	mv thinkpad_ec{,-$cfg}.ko
-	mv hdaps{,-$cfg}.ko
-done
+%define _CFLAGS CFLAGS="%{rpmcflags} -I$PWD/include -I$PWD/o/include/asm/mach-default"
+%build_kernel_modules -m tp_smapi,thinkpad_ec,hdaps %{_CFLAGS}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
-install -d $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}{,smp}/misc
-install tp_smapi-%{?with_dist_kernel:up}%{!?with_dist_kernel:nondist}.ko \
-	$RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}/misc/tp_smapi.ko
-install thinkpad_ec-%{?with_dist_kernel:up}%{!?with_dist_kernel:nondist}.ko \
-	$RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}/misc/thinkpad_ec.ko
-install hdaps-%{?with_dist_kernel:up}%{!?with_dist_kernel:nondist}.ko \
-	$RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}/misc/hdaps.ko
-%if %{with smp} && %{with dist_kernel}
-install tp_smapi-smp.ko \
-	$RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}smp/misc/tp_smapi.ko
-install thinkpad_ec-smp.ko \
-	$RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}smp/misc/thinkpad_ec.ko
-install hdpaps-smp.ko \
-	$RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}smp/misc/hdaps.ko
-%endif
+%install_kernel_modules -m tp_smapi,thinkpad_ec,hdaps -d misc
 
 %clean
 rm -rf $RPM_BUILD_ROOT
