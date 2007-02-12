@@ -7,7 +7,7 @@
 %define		_name	tp_smapi
 %define		_rel	0.1
 Summary:	sysfs interface to access ThinkPad's SMAPI functionality
-Summary(pl):	Interfejs sysfs do funkcjonalno∂ci SMAPI ThinkPadÛw
+Summary(pl.UTF-8):   Interfejs sysfs do funkcjonalno≈õci SMAPI ThinkPad√≥w
 Name:		kernel%{_alt_kernel}-misc-tp_smapi
 Version:	0.30
 Release:	%{_rel}@%{_kernel_ver_str}
@@ -31,14 +31,14 @@ sysfs interface to access ThinkPad's SMAPI functionality.
 
 This package contains Linux kernel module.
 
-%description -l pl
-Interfejs sysfs do funkcjonalno∂ci SMAPI ThinkPadÛw.
+%description -l pl.UTF-8
+Interfejs sysfs do funkcjonalno≈õci SMAPI ThinkPad√≥w.
 
-Ten pakiet zawiera modu≥ j±dra Linuksa.
+Ten pakiet zawiera modu≈Ç jƒÖdra Linuksa.
 
 %package -n kernel%{_alt_kernel}-smp-misc-tp_smapi
 Summary:	Linux SMP driver for tp_smapi
-Summary(pl):	Sterownik dla Linuksa SMP do tp_smapi
+Summary(pl.UTF-8):   Sterownik dla Linuksa SMP do tp_smapi
 Release:	%{_rel}@%{_kernel_ver_str}
 Group:		Base/Kernel
 Requires(post,postun):	/sbin/depmod
@@ -53,10 +53,10 @@ sysfs interface to access ThinkPad's SMAPI functionality.
 
 This package contains Linux SMP module.
 
-%description -n kernel%{_alt_kernel}-smp-misc-tp_smapi -l pl
-Interfejs sysfs do funkcjonalno∂ci SMAPI ThinkPadÛw.
+%description -n kernel%{_alt_kernel}-smp-misc-tp_smapi -l pl.UTF-8
+Interfejs sysfs do funkcjonalno≈õci SMAPI ThinkPad√≥w.
 
-Ten pakiet zawiera modu≥ j±dra Linuksa SMP.
+Ten pakiet zawiera modu≈Ç jƒÖdra Linuksa SMP.
 
 %prep
 %setup -q -n tp_smapi-%{version}
