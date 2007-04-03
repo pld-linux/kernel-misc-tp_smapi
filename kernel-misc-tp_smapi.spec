@@ -12,7 +12,7 @@ Name:		kernel%{_alt_kernel}-misc-tp_smapi
 Version:	0.30
 Release:	%{_rel}@%{_kernel_ver_str}
 License:	GPL v2
-Group:		Applications
+Group:		Base/Kernel
 Source0:	http://dl.sourceforge.net/tpctl/%{_name}-%{version}.tgz
 # Source0-md5:	06e15345276d8389950bd89c8bd96717
 URL:		http://tpctl.sourceforge.net/
