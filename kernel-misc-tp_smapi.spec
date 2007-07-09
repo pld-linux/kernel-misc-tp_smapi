@@ -1,6 +1,7 @@
 #
 # Conditional build:
 %bcond_without	dist_kernel	# allow non-distribution kernel
+%bcond_without	up		# don't build UP module
 %bcond_without	smp		# don't build SMP module
 %bcond_with	verbose		# verbose build (V=1)
 
@@ -9,12 +10,12 @@
 Summary:	sysfs interface to access ThinkPad's SMAPI functionality
 Summary(pl):	Interfejs sysfs do funkcjonalno¶ci SMAPI ThinkPadów
 Name:		kernel%{_alt_kernel}-misc-tp_smapi
-Version:	0.30
+Version:	0.31
 Release:	%{_rel}@%{_kernel_ver_str}
 License:	GPL v2
-Group:		Applications
+Group:		Base/Kernel
 Source0:	http://dl.sourceforge.net/tpctl/%{_name}-%{version}.tgz
-# Source0-md5:	06e15345276d8389950bd89c8bd96717
+# Source0-md5:	c999d10250974a188f45bbe50d2434d3
 URL:		http://tpctl.sourceforge.net/
 %if %{with dist_kernel}
 BuildRequires:	kernel%{_alt_kernel}-module-build >= 3:2.6.14}
@@ -22,7 +23,7 @@ BuildRequires:	kernel%{_alt_kernel}-module-build >= 3:2.6.14}
 Requires(postun):	%releq_kernel_up
 %endif
 BuildRequires:	rpmbuild(macros) >= 1.348
-Requires(post,postun):  /sbin/depmod
+Requires(post,postun):	/sbin/depmod
 ExclusiveArch:	%{ix86}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -46,7 +47,7 @@ Requires(post,postun):	/sbin/depmod
 %requires_releq_kernel_smp
 Requires(postun):	%releq_kernel_smp
 %endif
-Requires(post,postun):  /sbin/depmod
+Requires(post,postun):	/sbin/depmod
 
 %description -n kernel%{_alt_kernel}-smp-misc-tp_smapi
 sysfs interface to access ThinkPad's SMAPI functionality.
