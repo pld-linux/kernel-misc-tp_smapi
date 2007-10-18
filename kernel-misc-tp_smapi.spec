@@ -8,12 +8,12 @@
 Summary:	sysfs interface to access ThinkPad's SMAPI functionality
 Summary(pl.UTF-8):	Interfejs sysfs do funkcjonalności SMAPI ThinkPadów
 Name:		kernel%{_alt_kernel}-misc-tp_smapi
-Version:	0.31
+Version:	0.32
 Release:	%{_rel}@%{_kernel_ver_str}
 License:	GPL v2
 Group:		Base/Kernel
 Source0:	http://dl.sourceforge.net/tpctl/%{_name}-%{version}.tgz
-# Source0-md5:	c999d10250974a188f45bbe50d2434d3
+# Source0-md5:	4f721dc1c1d16494ddda7ac6c6e9a92f
 URL:		http://tpctl.sourceforge.net/
 %if %{with dist_kernel}
 BuildRequires:	kernel%{_alt_kernel}-module-build >= 3:2.6.14}
