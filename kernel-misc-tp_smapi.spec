@@ -17,7 +17,7 @@ Source0:	http://dl.sourceforge.net/tpctl/%{orig_name}-%{version}.tgz
 URL:		http://tpctl.sourceforge.net/
 %if %{with dist_kernel}
 BuildRequires:	kernel%{_alt_kernel}-module-build >= 3:2.6.19}
-%requiresreleq_kernel
+%requires_releq_kernel
 Requires(postun):	%releq_kernel
 %endif
 BuildRequires:	rpmbuild(macros) >= 1.348
