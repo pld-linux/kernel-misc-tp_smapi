@@ -41,7 +41,7 @@ echo "obj-m := thinkpad_ec.o tp_smapi.o hdaps.o" > Makefile
 echo > dmi_ec_oem_string.h
 
 %build
-%define _CFLAGS CFLAGS="%{rpmcflags} -I$PWD/include -I$PWD/o/include/asm/mach-default"
+%define _CFLAGS CFLAGS="%{rpmcflags} -I$PWD/include -I$PWD/o/include/asm/mach-default -I$PWD/o/include2/asm/mach-default"
 %build_kernel_modules -m tp_smapi,thinkpad_ec,hdaps %{_CFLAGS}
 
 %install
