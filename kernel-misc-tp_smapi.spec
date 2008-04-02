@@ -3,21 +3,21 @@
 %bcond_without	dist_kernel	# allow non-distribution kernel
 %bcond_with	verbose		# verbose build (V=1)
 
-%define		_name	tp_smapi
-%define		_rel	0.1
+%define		orig_name	tp_smapi
+%define		rel		0.2
 Summary:	sysfs interface to access ThinkPad's SMAPI functionality
 Summary(pl.UTF-8):	Interfejs sysfs do funkcjonalności SMAPI ThinkPadów
 Name:		kernel%{_alt_kernel}-misc-tp_smapi
 Version:	0.32
-Release:	%{_rel}@%{_kernel_ver_str}
+Release:	%{rel}@%{_kernel_ver_str}
 License:	GPL v2
 Group:		Base/Kernel
-Source0:	http://dl.sourceforge.net/tpctl/%{_name}-%{version}.tgz
+Source0:	http://dl.sourceforge.net/tpctl/%{orig_name}-%{version}.tgz
 # Source0-md5:	4f721dc1c1d16494ddda7ac6c6e9a92f
 URL:		http://tpctl.sourceforge.net/
 %if %{with dist_kernel}
-BuildRequires:	kernel%{_alt_kernel}-module-build >= 3:2.6.14}
-%requires_releq_kernel
+BuildRequires:	kernel%{_alt_kernel}-module-build >= 3:2.6.19}
+%requiresreleq_kernel
 Requires(postun):	%releq_kernel
 %endif
 BuildRequires:	rpmbuild(macros) >= 1.348
@@ -37,12 +37,12 @@ Ten pakiet zawiera moduł jądra Linuksa.
 
 %prep
 %setup -q -n tp_smapi-%{version}
-echo "obj-m := thinkpad_ec.o tp_smapi.o hdaps.o" > Makefile
-echo > dmi_ec_oem_string.h
+cat > Makefile <<'EOF'
+obj-m := thinkpad_ec.o tp_smapi.o hdaps.o
+EOF
 
 %build
-%define _CFLAGS CFLAGS="%{rpmcflags} -I$PWD/include -I$PWD/o/include/asm/mach-default -I$PWD/o/include2/asm/mach-default"
-%build_kernel_modules -m tp_smapi,thinkpad_ec,hdaps %{_CFLAGS}
+%build_kernel_modules -m tp_smapi,thinkpad_ec,hdaps EXTRA_CFLAGS="-I$PWD/include"
 
 %install
 rm -rf $RPM_BUILD_ROOT
