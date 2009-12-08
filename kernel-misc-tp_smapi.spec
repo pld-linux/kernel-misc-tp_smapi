@@ -4,7 +4,7 @@
 %bcond_with	verbose		# verbose build (V=1)
 
 %define		orig_name	tp_smapi
-%define		rel		2
+%define		rel		3
 Summary:	sysfs interface to access ThinkPad's SMAPI functionality
 Summary(pl.UTF-8):	Interfejs sysfs do funkcjonalności SMAPI ThinkPadów
 Name:		kernel%{_alt_kernel}-misc-tp_smapi
@@ -22,6 +22,7 @@ Requires(postun):	%releq_kernel
 %endif
 BuildRequires:	rpmbuild(macros) >= 1.348
 Requires(post,postun):  /sbin/depmod
+ExclusiveArch:	%{ix86} %{x8664}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
